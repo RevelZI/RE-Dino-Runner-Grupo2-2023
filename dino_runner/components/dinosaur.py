@@ -6,7 +6,7 @@ class Dinosaur(Sprite):
     X_POS = 80
     Y_POS = 310
     JUMP_VEL = 8.5
-    Duck_Y = 340
+    DUCK_Y = 340
 
     def __init__(self):
         self.image = RUNNING[0]
@@ -18,7 +18,7 @@ class Dinosaur(Sprite):
         self.dino_duck = False
         self.dino_jump = False
         self.jump_vel = self.JUMP_VEL
-        self.duck_y = self.Duck_Y
+        self.duck_y = self.DUCK_Y
 
     def update(self, user_input):
         if self.dino_jump:
@@ -36,7 +36,7 @@ class Dinosaur(Sprite):
             self.dino_run = False
             self.dino_duck = False
             self.dino_jump = True
-        else:
+        elif not self.dino_jump:
             self.dino_run = True
             self.dino_duck = False
             self.dino_jump = False
