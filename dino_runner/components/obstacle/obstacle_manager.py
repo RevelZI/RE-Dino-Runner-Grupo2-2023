@@ -7,10 +7,14 @@ from dino_runner.utils.constants import LARGE_CACTUS, SMALL_CACTUS
 class ObstacleManager:
     def __init__(self):
         self.obstacles = []
-        self.cactus = [SMALL_CACTUS, LARGE_CACTUS]
+
     def update(self, game):
         if len(self.obstacles) == 0:
-            self.obstacles.append(Cactus(random.choice(self.cactus)))
+            cactus = random.randint(0, 1)
+            if cactus == 1:
+                self.obstacles.append(Cactus(SMALL_CACTUS))
+            else:
+                self.obstacles.append(Cactus(LARGE_CACTUS))
 
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
