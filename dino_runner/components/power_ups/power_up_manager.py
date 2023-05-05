@@ -1,8 +1,9 @@
 import random
 import pygame
 from dino_runner.components.obstacles.cactus import Cactus
+from dino_runner.components.power_ups.fly import Fly
 from dino_runner.components.power_ups.shield import Shield
-from dino_runner.utils.constants import LARGE_CACTUS, SMALL_CACTUS
+from dino_runner.utils.constants import FLY, LARGE_CACTUS, SHIELD, SMALL_CACTUS
 
 
 class PowerUpManager:
@@ -19,13 +20,22 @@ class PowerUpManager:
                 power_up.start_time = pygame.time.get_ticks()
                 #add this part to Dino
 
-                player.shield = True
-                player.show_text = True
-                player.type = power_up.type
+                if power_up.image == SHIELD:
+                    player.shield = True
+                    player.show_text = True
+                    player.type = power_up.type
 
-                time_random = random.randrange (5, 8)
-                player.shield_time_up = power_up.start_time + (time_random * 1000)
-                self.power_ups.remove(power_up)
+                    time_random = random.randrange (5, 8)
+                    player.shield_time_up = power_up.start_time + (time_random * 1000)
+                    self.power_ups.remove(power_up)
+                elif power_up.image == FLY:
+                    player.fly = True
+                    player.show_text = True
+                    player.type = power_up.type
+
+                    time_random = random.randrange (5, 8)
+                    player.fly_time_up = power_up.start_time + (time_random * 1000)
+                    self.power_ups.remove(power_up)
 
     def draw(self, screen):
         for power_up in self.power_ups:
@@ -39,8 +49,15 @@ class PowerUpManager:
     def generate_power_ups(self, points):
         self.points = points
         if len(self.power_ups) == 0:
-            if self.when_appers == self.points:
-                print ("generating powerups")
-                self.power_ups.append(Shield())
-                self.when_appers = random.randint(self.when_appers+200, self.when_appers+400)
+            power_random = random.randint(0,1)
+            if power_random == 0:
+                if self.when_appers == self.points:
+                    print ("generating powerups")
+                    self.power_ups.append(Shield())
+                    self.when_appers = random.randint(self.when_appers+200, self.when_appers+400)
+            elif power_random == 1:
+                if self.when_appers == self.points:
+                    print ("generating powerups")
+                    self.power_ups.append(Fly())
+                    self.when_appers = random.randint(self.when_appers+200, self.when_appers+400)
         return self.power_ups

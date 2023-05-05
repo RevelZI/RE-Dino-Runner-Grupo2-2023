@@ -1,6 +1,8 @@
 import pygame
 import os
 
+pygame.mixer.init()
+
 # Global Constants
 TITLE = "Dino Runner Game"
 SCREEN_HEIGHT = 600
@@ -64,11 +66,21 @@ BIRD = [
 CLOUD = pygame.image.load(os.path.join(IMG_DIR, 'Other/Cloud.png'))
 SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 HAMMER = pygame.image.load(os.path.join(IMG_DIR, 'Other/hammer.png'))
+FLY = pygame.image.load(os.path.join(IMG_DIR, 'Other/fly.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 
+file = open("dino_runner/musica.mp3")
+pygame.mixer.music.load(file)
+Musica = pygame.mixer.music.play
+
+file2 = open("dino_runner/Salto.mp3")
+Salto = pygame.mixer.Sound(file2)
+
+
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = "shield" 
+FLY_TYPE = "fly"

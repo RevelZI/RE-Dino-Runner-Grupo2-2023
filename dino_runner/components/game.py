@@ -3,7 +3,7 @@ from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components import text_utils
 from dino_runner.components.power_ups.power_up_manager import PowerUpManager
-from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, Musica
 
 
 class Game:
@@ -31,6 +31,7 @@ class Game:
         self.game_speed = 20
         self.points = 0
         self.playing = True
+        Musica(True)
         while self.playing:
             self.events()
             self.update()
@@ -63,6 +64,7 @@ class Game:
         
         #Tarea menu para despues de la muerte
         elif self.death_count > 0:
+            Musica(False)
             text, text_rect = text_utils.get_centered_message('Press any Key to Restart')
             score, score_rect = text_utils.get_centered_message('Your Score: ' + str(self.points),
                                                                 height=half_screen_height + 50)
@@ -125,4 +127,5 @@ class Game:
             self.game_speed += 1
         text, text_rect = text_utils.get_score_element(str(self.points))
         self.player.check_invincibility(self.screen)
+        self.player.check_fly(self.screen)
         self.screen.blit(text, text_rect)
